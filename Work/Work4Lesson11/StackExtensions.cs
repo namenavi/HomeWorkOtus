@@ -39,7 +39,7 @@ namespace Work4Lesson11
         /// <param name="second"></param>
         /// <returns></returns>
         /// <exception cref="ArgumentNullException"></exception>
-        public static StackDefault Merge(this StackDefault first, StackDefault second)
+        public static SimpleStack Merge(this SimpleStack first, SimpleStack second)
         {
             if(first == null)
             {

@@ -12,7 +12,6 @@
 Реализовать все методы интерфейсов в классе. До этого пункта достаточно было "throw new NotImplementedException();"
 В чат напишите также время, которое вам потребовалось для реализации домашнего задания.
   */
-using System.Collections.Generic;
 
 namespace Work5Lesson15
 {

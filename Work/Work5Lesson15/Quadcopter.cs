@@ -13,6 +13,8 @@
 В чат напишите также время, которое вам потребовалось для реализации домашнего задания.
   */
 
+using System.Diagnostics;
+
 namespace Work5Lesson15
 {
     public class Quadcopter : IFlyingRobot, IChargeable
@@ -21,14 +23,12 @@ namespace Work5Lesson15
         public void Charge()
         {
             Console.WriteLine("Charging...");
-            Thread.Sleep(3000);
+            Task.Delay(3000);
             Console.WriteLine("Charged!");
         }
 
         public List<string> GetComponents()
         {
-            if(_components == null)
-              throw new ArgumentNullException("Не объявлен лист");
             return _components;
         }
 
@@ -46,7 +46,7 @@ namespace Work5Lesson15
             return $"""
                       Версия выполняющейся в данный момент программы: {typeof(Program).Assembly.GetName().Version},
                       Дата создания выполняющейся в данный момент программы: {File.GetCreationTime(AppDomain.CurrentDomain.BaseDirectory + 
-                      System.Diagnostics.Process.GetCurrentProcess().ProcessName + ".exe")}
+                      Process.GetCurrentProcess().ProcessName + ".exe")}
                 """;
         }
     }

@@ -1,9 +1,9 @@
 ﻿namespace Work4Lesson11
 {
-    public class StackDefault
+    public class SimpleStack
     {
         List<string> _strings;
-        public StackDefault(params string[] strings) 
+        public SimpleStack(params string[] strings) 
         {
             _strings = new List<string>();
             foreach(string s in strings)
@@ -41,9 +41,9 @@
         /// </summary>
         /// <param name="stacks"></param>
         /// <returns></returns>
-        public static StackDefault Concat(params StackDefault[] stacks)
+        public static SimpleStack Concat(params SimpleStack[] stacks)
         {
-            var newStack = new StackDefault();
+            var newStack = new SimpleStack();
             foreach(var s in stacks)
             {
                 newStack.Merge(s);

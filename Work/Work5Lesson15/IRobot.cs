@@ -20,7 +20,7 @@ namespace Work5Lesson15
         public List<string> GetComponents();
         public string GetRobotType()
         {
-            return "I am a flying robot.";
+            return "I am a simple robot.";
         }
     }
 }
