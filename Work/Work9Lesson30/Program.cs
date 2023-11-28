@@ -50,8 +50,6 @@ namespace Work9Lesson30
                  
             }).ToList();
 
-
-
             // Ожидание нажатия клавиши
             while(true)
             {
@@ -73,16 +71,21 @@ namespace Work9Lesson30
                     }
                 }
             }
-
             Console.WriteLine("Нажмите любую клавишу для выхода.");
             Console.ReadKey();
         }
-
+        /// <summary>
+        /// Метод отработки события  ImageCompleted
+        /// </summary>
+        /// <param name="fileName"></param>
         private static void ImageDownload_ImageCompleted(string fileName)
         {
             Console.WriteLine($"Скачивание файла {fileName} закончилось");
         }
-
+        /// <summary>
+        /// Метод отработки события  ImageStarted
+        /// </summary>
+        /// <param name="fileName"></param>
         private static void ImageDownload_ImageStarted(string fileName)
         {
             Console.WriteLine($"Скачивание файла {fileName} началось");
