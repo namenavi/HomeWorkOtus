@@ -44,7 +44,7 @@ namespace Work11Lesson35
             if(_entries[bucketNum].key.GetHashCode() == key.GetHashCode())
             {
                 //TODO: Разобраться как реализовать запись через поле Entry.next Метод для решения коллизий называется метод цепочек
-                throw new ArgumentException("Этот ключ занят. Используйте другой.");
+                throw new ArgumentException($"{key} - Этот ключ занят. Используйте другой.");
             }
             else
             {
