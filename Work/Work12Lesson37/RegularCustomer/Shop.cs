@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 
-namespace Work12Lesson37
+namespace Work12Lesson37.RegularCustomer
 {
     class Shop : INotifyCollectionChanged
     {
@@ -11,9 +11,12 @@ namespace Work12Lesson37
         public Shop()
         {
             list.CollectionChanged += List_CollectionChanged;
-            ;
         }
-
+        /// <summary>
+        /// Метод вызова внешних подписчиков
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void List_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         {
             CollectionChanged?.Invoke(sender, e);
@@ -44,6 +47,9 @@ namespace Work12Lesson37
                 Console.WriteLine("Неверный ID товара. Такого товара нет.");
             }
         }
+        /// <summary>
+        /// Вывести товары находящиеся в магазине
+        /// </summary>
         public void SelectProducts()
         {
             Console.WriteLine($"Товарна складе в количестве: {list.Count}");
@@ -51,13 +57,6 @@ namespace Work12Lesson37
             {
                 Console.WriteLine($"Товар:  ID - {product.Id}, Name - {product.Name}");
             }
-        } 
-
-        //public void Subscribe(IObserver<Location> observer)
-        //{
-        //    if(!observers.Contains(observer))   Unsubscriber
-        //        observers.Add(observer);
-        //    return new Unsubscriber(observers, observer);
-        //}
+        }
     }
 }

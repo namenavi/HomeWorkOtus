@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Work12Lesson37
+namespace Work12Lesson37.RegularCustomer
 {
     /// <summary>
     /// Класс описывающий товар
@@ -11,7 +11,7 @@ namespace Work12Lesson37
         public Product()
         {
             Name = $"Товар от {DateTime.Now}";
-            Id = _random.Next(1, 9999); 
+            Id = _random.Next(1, 9999);
         }
         /// <summary>
         /// Идентификатор товара
