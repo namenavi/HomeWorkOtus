@@ -1,4 +1,6 @@
-﻿namespace Work12Lesson37.TheHouse
+﻿using System.Collections.Immutable;
+
+namespace Work12Lesson37.TheHouse
 {
     /// <summary>
     /// Программа Дом, который построил Джек
@@ -16,7 +18,7 @@
             var part7 = new Part7();
             var part8 = new Part8();
             var part9 = new Part9();
-            part1.AddPart(new List<string>());
+            part1.AddPart();
             part2.AddPart(part1.Poem);
             part3.AddPart(part2.Poem);
             part4.AddPart(part3.Poem);

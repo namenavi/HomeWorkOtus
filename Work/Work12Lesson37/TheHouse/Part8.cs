@@ -1,27 +1,29 @@
-﻿namespace Work12Lesson37.TheHouse
+﻿using System.Collections.Immutable;
+
+namespace Work12Lesson37.TheHouse
 {
     public class Part8 : IPart
     {
-        private List<string> poem = new List<string>();
-        public List<string> Poem => poem;
-
-        public void AddPart(List<string> args)
+        private ImmutableList<string> poem;
+        public ImmutableList<string> Poem
         {
-            foreach (var arg in args)
-            {
-                Poem.Add(arg);
-            }
-            Poem.Add("А это ленивый и толстый пастух,");
-            Poem.Add("Который бранится с коровницей строгою,");
-            Poem.Add("Которая доит корову безрогую,");
-            Poem.Add("Лягнувшую старого пса без хвоста,");
-            Poem.Add("Который за шиворот треплет кота,");
-            Poem.Add("Который пугает и ловит синицу,");
-            Poem.Add("Которая часто ворует пшеницу,");
-            Poem.Add("Которая в темном чулане хранится");
-            Poem.Add("В доме,");
-            Poem.Add("Который построил Джек.");
-            Poem.Add($"{Environment.NewLine}");
+            get { return poem; }
+            set { poem = value; }
+        }
+        public void AddPart(ImmutableList<string> args)
+        {
+            poem = ImmutableList.Create<string>(args.ToArray<string>());
+            poem = poem.Add("А это ленивый и толстый пастух,")
+                .Add("Который бранится с коровницей строгою,")
+                .Add("Которая доит корову безрогую,")
+                .Add("Лягнувшую старого пса без хвоста,")
+                .Add("Который за шиворот треплет кота,")
+                .Add("Который пугает и ловит синицу,")
+                .Add("Которая часто ворует пшеницу,")
+                .Add("Которая в темном чулане хранится")
+                .Add("В доме,")
+                .Add("Который построил Джек.")
+                .Add($"{Environment.NewLine}");
         }
     }
 }
