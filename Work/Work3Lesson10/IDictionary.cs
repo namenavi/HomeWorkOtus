@@ -2,12 +2,8 @@
 {
     public interface IDictionary
     {
-        public int A { get; set; }
-        public int B { get; set; }
-        public int C { get; set; }
-
-        public string StrringA { get; set; }
-        public string StrringB { get; set; }
-        public string StrringC { get; set; }
+        public string StringA { get; set; }
+        public string StringB { get; set; }
+        public string StringC { get; set; }
     }
 }

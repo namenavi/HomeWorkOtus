@@ -2,6 +2,7 @@
 {
     enum Severity
     {
+        info,
         Warning,
         Error
     }

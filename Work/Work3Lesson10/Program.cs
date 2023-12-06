@@ -4,147 +4,112 @@ namespace Work3Lesson10
 {
     internal class Program
     {
-        protected static int origRow;
-        protected static int origCol;
-        protected static StringBuilder inputText;
-        protected static bool isInputA;
-        protected static bool isInputB;
-        protected static bool isInputC;
-        protected static double x1, x2;
-        protected static Dictionary dataABC;
+        static int _origRow;
+        static StringBuilder _inputText;
+        static Dictionary _dataABC;
+        static bool _isWhile = true;
 
         static void Main(string[] args)
         {
-            ProgramBody();
-        }
-
-        static void ProgramBody()
-        {
-            try
+            while(true)
             {
-                dataABC = new Dictionary();
-                inputText = new StringBuilder();
-                SetCursor();
-                while(true)
+                try
                 {
+                    _dataABC = new Dictionary();
+                    if(_isWhile)
+                    {
+                        ProgramBody();
+                    }
+                    Console.WriteLine("Запустить снова нажмите [Enter], завершить приложение [ESC]");
                     ConsoleKeyInfo keyPress = Console.ReadKey(true);
-
                     switch(keyPress.Key)
                     {
+                        case ConsoleKey.Escape:
+                            return;
                         case ConsoleKey.Enter:
-                            SetCursor(ConsoleKey.Enter);
-                            break;
-                        case ConsoleKey.DownArrow:
-                            SetCursor(ConsoleKey.DownArrow);
-                            break;
-                        case ConsoleKey.Backspace:
-                            int len = inputText.Length;
-                            if(len>0)
-                            {
-                                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
-                                Console.Write(" ");
-                                Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
-                                inputText.Remove(--len, 1);
-                            }
+                            ProgramBody(); 
                             break;
                         default:
-                            char input = keyPress.KeyChar;
-                            //if(char.IsDigit(input))    //// Можно проверку на число сделать сразу
-                            //{
-                            inputText.Append(input);
-                            Console.Write(input);
-                            //}
                             break;
                     }
                 }
-            }
-            catch(ArgumentException ex)
-            {
-                FormatData(ex.Message, Severity.Error, dataABC);
-                Restart();
-            }
-            catch(ArithmeticException ex)
-            {
-                FormatData(ex.Message, Severity.Warning, dataABC);
-                Restart();
-            }
-            catch(Exception ex)
-            {
-                FormatData(ex.Message, Severity.Error, dataABC);
-                Restart();
+                catch(ArgumentException ex)
+                {
+                    _isWhile = false;
+                    FormatData(ex.Message, Severity.info, _dataABC);
+                }
+                catch(UseException ex)
+                {
+                    _isWhile = false;
+                    FormatData(ex.Message, Severity.Warning, _dataABC);
+                }
+                catch(Exception ex)
+                {
+                    _isWhile = false;
+                    FormatData(ex.Message, Severity.Error, _dataABC);
+                }
             }
         }
-
-        private static void Restart()
+        /// <summary>
+        /// Основня логика приложения
+        /// </summary>
+        static void ProgramBody()
         {
-            Console.WriteLine("Запустить снова нажмите [Enter], завершить приложение [ESC]");
-            while(true)
+            _isWhile = true;
+            _inputText = new StringBuilder();
+            SetCursor();
+            while(_isWhile)
             {
                 ConsoleKeyInfo keyPress = Console.ReadKey(true);
-
                 switch(keyPress.Key)
                 {
-                    case ConsoleKey.Escape:
-                        return;
                     case ConsoleKey.Enter:
-                        ProgramBody();
+                        SetCursor(ConsoleKey.Enter);
+                        break;
+                    case ConsoleKey.DownArrow:
+                        SetCursor(ConsoleKey.DownArrow);
+                        break;
+                    case ConsoleKey.Backspace:
+                        int len = _inputText.Length;
+                        if(len>0)
+                        {
+                            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                            Console.Write(" ");
+                            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
+                            _inputText.Remove(--len, 1);
+                        }
                         break;
                     default:
+                        char input = keyPress.KeyChar;
+                        _inputText.Append(input);
+                        Console.Write(input);
                         break;
                 }
             }
         }
-
-        private static string InputC(string v)
-        {
-            if(isInputC)
-            {
-                return dataABC.StrringC;
-            }
-            return v;
-        }
-
-        private static string InputB(string v)
-        {
-            if(isInputB)
-            {
-                return dataABC.StrringB;
-            }
-            return v;
-        }
-
-        private static string InputA(string v)
-        {
-            if(isInputA)
-            {
-                return dataABC.StrringA;
-            }
-            return v;
-        }
-
-
-
+        /// <summary>
+        /// Метод который определяет где находится курсору
+        /// </summary>
+        /// <param name="key"></param>
         private static void SetCursor(ConsoleKey key = ConsoleKey.Home)
         {
-            origRow = Console.CursorTop;
+            _origRow = Console.CursorTop;
             if(key == ConsoleKey.Home)
             {
                 WriteAt(2);
             }
             else if(key == ConsoleKey.DownArrow)
             {
-                switch(origRow)
+                switch(_origRow)
                 {
                     case 2:
-                        dataABC.StrringA =  inputText.ToString();
-                        isInputA = true;
-                        inputText.Clear();
+                        _dataABC.StringA =  _inputText.ToString();
+                        _inputText.Clear();
                         WriteAt(3);
                         break;
                     case 3:
-                        dataABC.StrringB =  inputText.ToString();
-                        isInputB = true;
-                        inputText.Clear();
+                        _dataABC.StringB =  _inputText.ToString();
+                        _inputText.Clear();
                         WriteAt(4);
                         break;
                     default:
@@ -153,68 +118,20 @@ namespace Work3Lesson10
             }
             else if(key == ConsoleKey.Enter)
             {
-                dataABC.StrringC =  inputText.ToString();
-                if(Console.CursorTop == 4 && dataABC.StrringC !="")
+                if(Console.CursorTop == 4 && _inputText.ToString() != string.Empty)
                 {
-                    
-                    isInputC = true;
-                    inputText.Clear();
+                    _dataABC.StringC =  _inputText.ToString();
+                    _inputText.Clear();
                     WriteAt(5);
-                    ParseStringToInt();
-                    QuadraticEquation(dataABC);
+                    _isWhile = false;
+                    _dataABC.QuadraticEquation();
                 }
             }
         }
-
-        static void ParseStringToInt()
-        {
-            if(!int.TryParse(dataABC.StrringA, out int _resultA))
-            {
-                throw new ArgumentException("Не верный формат параметра a");
-            }
-            dataABC.A = _resultA;
-
-            if(!int.TryParse(dataABC.StrringB, out int _resultB))
-            {
-                throw new ArgumentException("Не верный формат параметра b");
-            }
-            dataABC.B =  _resultB;
-
-            if(!int.TryParse(dataABC.StrringC, out int _resultC))
-            {
-                throw new ArgumentException("Не верный формат параметра c");
-            }
-            dataABC.C =  _resultC;
-        }
-
         /// <summary>
-        /// Решение квадратного уравнения
+        /// Метод который перерисовывает строки
         /// </summary>
-        static void QuadraticEquation(Dictionary dataABC)
-        {
-            var discriminant = Math.Pow(dataABC.B, 2) - 4 * dataABC.A * dataABC.C;
-            if(discriminant < 0)
-            {
-                throw new ArithmeticException("Вещественных значений не найдено");
-            }
-            else
-            {
-                if(discriminant == 0) //квадратное уравнение имеет два одинаковых корня или один
-                {
-                    x1 = -dataABC.B / (2 * dataABC.A);
-                    x2 = x1;
-                    Console.WriteLine($"x = {x1}");
-                }
-                else //уравнение имеет два разных корня
-                {
-                    x1 = (-dataABC.B + Math.Sqrt(discriminant)) / (2 * dataABC.A);
-                    x2 = (-dataABC.B - Math.Sqrt(discriminant)) / (2 * dataABC.A);
-                    Console.WriteLine($"x1 = {x1}; x2 = {x2}");
-                }
-                Restart();
-            }
-        }
-
+        /// <param name="x"></param>
         protected static void WriteAt(int x)
         {
             try
@@ -225,7 +142,7 @@ namespace Work3Lesson10
                         Console.Clear();
                         Console.SetCursorPosition(0, 0);
                         Console.WriteLine("Решаем уравнение: ");
-                        Console.WriteLine($"{InputA("a")} * x^2 + {InputB("b")} * x + {InputC("c")} = 0");
+                        Console.WriteLine($"{_dataABC.InputA("a")} * x^2 + {_dataABC.InputB("b")} * x + {_dataABC.InputC("c")} = 0");
                         Console.WriteLine("> a: ");
                         Console.WriteLine("b: ");
                         Console.WriteLine("c: ");
@@ -235,9 +152,9 @@ namespace Work3Lesson10
                         Console.Clear();
                         Console.SetCursorPosition(0, 0);
                         Console.WriteLine("Решаем уравнение: ");
-                        Console.WriteLine($"{InputA("a")} * x^2 + {InputB("b")} * x + {InputC("c")} = 0");
-                        Console.WriteLine($"a: {InputA("")}");
-                        Console.WriteLine($"> b: {InputB("")}");
+                        Console.WriteLine($"{_dataABC.InputA("a")} * x^2 + {_dataABC.InputB("b")} * x + {_dataABC.InputC("c")} = 0");
+                        Console.WriteLine($"a: {_dataABC.InputA("")}");
+                        Console.WriteLine($"> b: {_dataABC.InputB("")}");
                         Console.WriteLine("c: ");
                         Console.SetCursorPosition(5, 3);
                         break;
@@ -245,9 +162,9 @@ namespace Work3Lesson10
                         Console.Clear();
                         Console.SetCursorPosition(0, 0);
                         Console.WriteLine("Решаем уравнение: ");
-                        Console.WriteLine($"{InputA("a")} * x^2 + {InputB("b")} * x + {InputC("c")} = 0");
-                        Console.WriteLine($"a: {InputA("")}");
-                        Console.WriteLine($"b: {InputB("")}");
+                        Console.WriteLine($"{_dataABC.InputA("a")} * x^2 + {_dataABC.InputB("b")} * x + {_dataABC.InputC("c")} = 0");
+                        Console.WriteLine($"a: {_dataABC.InputA("")}");
+                        Console.WriteLine($"b: {_dataABC.InputB("")}");
                         Console.WriteLine($"> c: ");
                         Console.SetCursorPosition(5, 4);
                         break;
@@ -255,10 +172,10 @@ namespace Work3Lesson10
                         Console.Clear();
                         Console.SetCursorPosition(0, 0);
                         Console.WriteLine("Решаем уравнение: ");
-                        Console.WriteLine($"{InputA("a")} * x^2 + {InputB("b")} * x + {InputC("c")} = 0");
-                        Console.WriteLine($"a: {InputA("")}");
-                        Console.WriteLine($"b: {InputB("")}");
-                        Console.WriteLine($"c: {InputC("")}");
+                        Console.WriteLine($"{_dataABC.InputA("a")} * x^2 + {_dataABC.InputB("b")} * x + {_dataABC.InputC("c")} = 0");
+                        Console.WriteLine($"a: {_dataABC.InputA("")}");
+                        Console.WriteLine($"b: {_dataABC.InputB("")}");
+                        Console.WriteLine($"c: {_dataABC.InputC("")}");
                         Console.SetCursorPosition(0, 5);
                         break;
                     default:
@@ -272,7 +189,12 @@ namespace Work3Lesson10
                 Console.WriteLine(e.Message);
             }
         }
-
+        /// <summary>
+        /// Метод который используется для отработки исключений
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="severity"></param>
+        /// <param name="data"></param>
         static void FormatData(string message, Severity severity, IDictionary data)
         {
             if(severity == Severity.Warning)
@@ -280,6 +202,17 @@ namespace Work3Lesson10
                 Console.WriteLine("");
                 Console.ForegroundColor = ConsoleColor.Black;
                 Console.BackgroundColor = ConsoleColor.Yellow;
+                Console.WriteLine("--------------------------------------------------");
+                Console.WriteLine(message);
+                Console.WriteLine("--------------------------------------------------");
+                Console.WriteLine("");
+                Console.ResetColor();
+            }
+            else if(severity == Severity.info)
+            {
+                Console.WriteLine("");
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.BackgroundColor = ConsoleColor.Green;
                 Console.WriteLine("--------------------------------------------------");
                 Console.WriteLine(message);
                 Console.WriteLine("--------------------------------------------------");
@@ -295,9 +228,9 @@ namespace Work3Lesson10
                 Console.WriteLine(message);
                 Console.WriteLine("--------------------------------------------------");
                 Console.WriteLine("");
-                Console.WriteLine($"a = {data.StrringA}");
-                Console.WriteLine($"b = {data.StrringB}");
-                Console.WriteLine($"c = {data.StrringC}");
+                Console.WriteLine($"a = {data.StringA}");
+                Console.WriteLine($"b = {data.StringB}");
+                Console.WriteLine($"c = {data.StringC}");
                 Console.ResetColor();
             }
         }
