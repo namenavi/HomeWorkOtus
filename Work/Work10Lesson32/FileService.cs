@@ -13,30 +13,30 @@
             try
             {
                 string filename;
-                for(int i = 1; i <= 10; i++)
+                for(var i = 1; i <= 10; i++)
                 {
                     filename = $"file{i}.txt";
                     //создание и перезапись файла
-                    using(StreamWriter writer = new StreamWriter($"{dir}\\{filename}", false))
+                    using(var writer = new StreamWriter($"{dir}\\{filename}", false))
                     {
                         await writer.WriteAsync(filename);
                     }
                     // добавление в файл
-                    using(StreamWriter writer = new StreamWriter($"{dir}\\{filename}", true))
+                    using(var writer = new StreamWriter($"{dir}\\{filename}", true))
                     {
                         await writer.WriteAsync("\t" + DateTime.Now);
                     }
                 }
 
-                for(int i = 1; i <= 10; i++)
+                for(var i = 1; i <= 10; i++)
                 {
                     filename = $"file{i}.txt";
-                    using(StreamWriter writer = new StreamWriter($"{dir2}\\{filename}", false))
+                    using(var writer = new StreamWriter($"{dir2}\\{filename}", false))
                     {
                         await writer.WriteAsync(filename);
                     }
                     // добавление в файл
-                    using(StreamWriter writer = new StreamWriter($"{dir2}\\{filename}", true))
+                    using(var writer = new StreamWriter($"{dir2}\\{filename}", true))
                     {
                         await writer.WriteAsync("\t" + DateTime.Now);
                     }
@@ -57,21 +57,21 @@
         {
             try
             {
-                for(int i = 1; i <= 10; i++)
+                for(var i = 1; i <= 10; i++)
                 {
-                    using(StreamReader reader = new StreamReader($"{dir}\\file{i}.txt"))
+                    using(var reader = new StreamReader($"{dir}\\file{i}.txt"))
                     {
-                        string text = await reader.ReadToEndAsync();
+                        var text = await reader.ReadToEndAsync();
                         Console.WriteLine($"Текст файла file{i}.txt: {text} + дополнение");
                     }
                 }
                 Console.WriteLine();
 
-                for(int i = 1; i <= 10; i++)
+                for(var i = 1; i <= 10; i++)
                 {
-                    using(StreamReader reader = new StreamReader($"{dir2}\\file{i}.txt"))
+                    using(var reader = new StreamReader($"{dir2}\\file{i}.txt"))
                     {
-                        string text = await reader.ReadToEndAsync();
+                        var text = await reader.ReadToEndAsync();
                         Console.WriteLine($"Текст файла file{i}.txt: {text} + дополнение");
                     }
                 }
