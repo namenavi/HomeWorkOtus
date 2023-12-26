@@ -90,29 +90,29 @@ namespace Work4Lesson13.CSV
 
             try
             {
-                using (var sr = new StreamReader(stream))
+                using(var sr = new StreamReader(stream))
                 {
                     columns = sr.ReadLine().Split(Separator);
                     rows = sr.ReadToEnd().Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
                 }
 
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 throw new InvalidCsvFormatException("Файл CSV недействителен.Дополнительную информацию см.в разделе Внутреннее исключение.", ex);
             }
 
             var data = new List<T>();
 
-            for (int row = 0; row < rows.Length; row++)
+            for(int row = 0; row < rows.Length; row++)
             {
                 var line = rows[row];
 
-                if (IgnoreEmptyLines && string.IsNullOrWhiteSpace(line))
+                if(IgnoreEmptyLines && string.IsNullOrWhiteSpace(line))
                 {
                     continue;
                 }
-                else if (!IgnoreEmptyLines && string.IsNullOrWhiteSpace(line))
+                else if(!IgnoreEmptyLines && string.IsNullOrWhiteSpace(line))
                 {
                     throw new InvalidCsvFormatException(string.Format(@"Ошибка: Пустая строка с номером строки: {0}", row));
                 }
@@ -120,7 +120,7 @@ namespace Work4Lesson13.CSV
                 var parts = line.Split(Separator);
 
 
-                for (int i = 0; i < parts.Length; i++)
+                for(int i = 0; i < parts.Length; i++)
                 {
                     var value = parts[i];
                     var column = columns[i];
@@ -131,17 +131,17 @@ namespace Work4Lesson13.CSV
 
                     var p = _properties.FirstOrDefault(a => a.Name.Equals(column, StringComparison.InvariantCultureIgnoreCase));
 
-                    if (p == null)
+                    if(p == null)
                     {
                         continue;
                     }
 
-                    if (UseTextQualifier)
+                    if(UseTextQualifier)
                     {
-                        if (value.IndexOf("\"") == 0)
+                        if(value.IndexOf("\"") == 0)
                             value = value.Substring(1);
 
-                        if (value[value.Length - 1].ToString() == "\"")
+                        if(value[value.Length - 1].ToString() == "\"")
                             value = value.Substring(0, value.Length - 1);
                     }
 
@@ -169,7 +169,7 @@ namespace Work4Lesson13.CSV
 
             sb.AppendLine(GetHeader());
 
-            foreach (var p in _properties)
+            foreach(var p in _properties)
             {
                 var raw = p.GetValue(data);
                 var value = raw == null ? "" :
@@ -177,7 +177,7 @@ namespace Work4Lesson13.CSV
                     .Replace(Separator.ToString(), Replacement)
                     .Replace(Environment.NewLine, NewlineReplacement);
 
-                if (UseTextQualifier)
+                if(UseTextQualifier)
                 {
                     value = string.Format("\"{0}\"", value);
                 }
@@ -185,7 +185,7 @@ namespace Work4Lesson13.CSV
             }
             sb.AppendLine(string.Join(Separator.ToString(), values));
 
-            using (var sw = new StreamWriter(stream))
+            using(var sw = new StreamWriter(stream))
             {
                 sw.Write(sb.ToString().Trim());
             }
