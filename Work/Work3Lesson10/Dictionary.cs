@@ -7,16 +7,17 @@
         private bool _isInputB;
         private int _a;
         private int _b;
-        private int _c;
+        private int _c; 
 
-        private string stringA;
-        private string stringB;
-        private string stringC;
+        private string? stringA;
+        private string? stringB;
+        private string? stringC;
         public string StringA
         {
-            get => stringA;
+            get => stringA!;
             set
             {
+                
                 stringA = value;
                 _isInputA =true;
                 if(!int.TryParse(stringA, out _a))
@@ -25,9 +26,9 @@
                 }
             }
         }
-        public string StringB 
+        public string StringB
         { 
-            get => stringB;
+            get => stringB!;
             set
             {
                 stringB = value;
@@ -40,7 +41,7 @@
         }
         public string StringC 
         { 
-            get => stringC;
+            get => stringC!;
             set
             {
                 stringC = value;
