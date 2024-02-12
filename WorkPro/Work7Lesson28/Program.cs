@@ -6,7 +6,7 @@ namespace Work7Lesson28
     {
         static void Main(string[] args)
         {
-            int size = 100000; // 1000000 или 10000000
+            int size = 100_000; // 1_000_000 или 10_000_000
             int[] array = new int[size];
             Random random = new Random();
             for(int i = 0; i < size; i++)
@@ -28,6 +28,7 @@ namespace Work7Lesson28
 
             // Вычисляем сумму элементов массива параллельным способом с использованием Thread
             stopwatch.Restart();
+            var _lock = new object();
             int sumParallel = 0;
             int numThreads = 4; // Количество потоков, можно изменить в зависимости от количества ядер процессора
             int chunkSize = size / numThreads; // Размер части массива, которую обрабатывает каждый поток
@@ -44,7 +45,7 @@ namespace Work7Lesson28
                         partialSum += array[j];
                     }
 
-                    lock(typeof(Program))
+                    lock(_lock)
                     {
                         sumParallel += partialSum;
                     }
