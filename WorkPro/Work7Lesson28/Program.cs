@@ -30,10 +30,10 @@ namespace Work7Lesson28
             stopwatch.Restart();
             var _lock = new object();
             int sumParallel = 0;
-            int numThreads = 4; // Количество потоков, можно изменить в зависимости от количества ядер процессора
-            int chunkSize = size / numThreads; // Размер части массива, которую обрабатывает каждый поток
-            Task[] tasks = new Task[numThreads];
-            for(int i = 0; i < numThreads; i++)
+            int numTask = 8; // Количество потоков, можно изменить в зависимости от количества ядер процессора
+            int chunkSize = size / numTask; // Размер части массива, которую обрабатывает каждый поток
+            Task[] tasks = new Task[numTask];
+            for(int i = 0; i < numTask; i++)
             {
                 int start = i * chunkSize; 
                 int end = (i + 1) * chunkSize; 
