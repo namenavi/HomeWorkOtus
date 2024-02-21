@@ -5,7 +5,7 @@ namespace Work2Lesson8
 {
     internal class Program
     {
-        
+
         static void Main(string[] args)
         {
             Stopwatch sw = new Stopwatch();
@@ -19,51 +19,40 @@ namespace Work2Lesson8
             sw.Stop();
             Console.WriteLine($"Время потраченое на заполнение List: {sw.Elapsed}");
 
-
             sw.Restart();
             WriteArrayList(valuesArrayList);
             sw.Stop();
             Console.WriteLine($"Время потраченое на заполнение ArrayList: {sw.Elapsed}");
-
 
             sw.Restart();
             WriteLinkedList(valuesLinkedList);
             sw.Stop();
             Console.WriteLine($"Время потраченое на заполнение LinkedList: {sw.Elapsed}");
 
-
-
-
-            sw.Start();
+            sw.Restart();
             var temp1 = SeachList(valuesList);
             sw.Stop();
             Console.WriteLine($"Время потраченое на нахождение {temp1} в List: {sw.Elapsed}");
-
 
             sw.Restart();
             var temp2 = SeachArrayList(valuesArrayList);
             sw.Stop();
             Console.WriteLine($"Время потраченое на нахождение {temp2} в ArrayList: {sw.Elapsed}");
 
-
             sw.Restart();
             var temp3 = SeachLinkedList(valuesLinkedList);
             sw.Stop();
             Console.WriteLine($"Время потраченое на нахождение {temp3} в LinkedList: {sw.Elapsed}");
 
-
-
-            sw.Start();
+            sw.Restart();
             DivisionList(valuesList);
             sw.Stop();
             Console.WriteLine($"Время потраченое деление без остатака в List: {sw.Elapsed}");
-
 
             sw.Restart();
             DivisionArrayList(valuesArrayList);
             sw.Stop();
             Console.WriteLine($"Время потраченое деление без остатака в ArrayList: {sw.Elapsed}");
-
 
             sw.Restart();
             DivisionLinkedList(valuesLinkedList);
@@ -101,9 +90,9 @@ namespace Work2Lesson8
             return valuesLinkedList.ElementAt(496753);
         }
 
-        private static string? SeachArrayList(ArrayList valuesArrayList)
+        private static string SeachArrayList(ArrayList valuesArrayList)
         {
-            return valuesArrayList[496753].ToString();
+            return valuesArrayList[496753]?.ToString()!;
         }
 
         private static int SeachList(List<int> valuesList)
