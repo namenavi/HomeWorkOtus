@@ -39,7 +39,7 @@
             Console.WriteLine();
             //Задание со звездачкой
             CatalogPlanetOfDelegate catalogPlanet1 = new CatalogPlanetOfDelegate();
-            Console.WriteLine(catalogPlanet.GetPlanet("Earth", planet => { return CountTransactions(planet); }));
+            Console.WriteLine(catalogPlanet.GetPlanet("Earth", CountTransactions));
             Console.WriteLine(catalogPlanet.GetPlanet("Lemonia", planet => { return CountTransactions(planet); }));
             Console.WriteLine(catalogPlanet.GetPlanet("Mars", planet => { return CountTransactions(planet); }));
             Console.WriteLine();
@@ -50,7 +50,7 @@
         /// Проверка количества обращений
         /// </summary>
         /// <returns></returns>
-        static string CountTransactions()
+        static string? CountTransactions()
         {
             _count++;
 
@@ -66,7 +66,7 @@
         /// </summary>
         /// <param name="planet">Название планеты.</param>
         /// <returns></returns>
-        static string CountTransactions(string planet)
+        static string? CountTransactions(string planet)
         {
             _count++;
 
