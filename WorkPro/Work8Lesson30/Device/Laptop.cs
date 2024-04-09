@@ -3,7 +3,7 @@
     /// <summary>
     /// Производный класс Ноутбук, наследуется от Компьютера
     /// </summary>
-    public class Laptop : Computer
+    public class Laptop : Computer, IMyCloneable<Laptop>
     {
         public bool HasTouchScreen { get; set; }
         public Laptop(string serialNumber, string operatingSystem, bool hasTouchScreen) : base(serialNumber, operatingSystem)
@@ -15,7 +15,7 @@
             return MyClone();
         }
 
-        public override Device MyClone()
+        public override Laptop MyClone()
         {
             return new Laptop(SerialNumber, OperatingSystem, HasTouchScreen);
         }

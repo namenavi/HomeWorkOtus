@@ -3,7 +3,7 @@
     /// <summary>
     /// Производный класс Млекопитающее, наследуется от Животного
     /// </summary>
-    public class Mammal : Animal
+    public class Mammal : Animal, IMyCloneable<Mammal>
     {
         public bool HasFur { get; set; }
         public int Legs { get; set; }
@@ -20,7 +20,7 @@
             return MyClone();
         }
 
-        public override Animal MyClone()
+        public override Mammal MyClone()
         {
             return new Mammal(Name, HasFur, Legs);
         }
