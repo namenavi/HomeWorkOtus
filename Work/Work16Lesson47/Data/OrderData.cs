@@ -3,7 +3,7 @@ using Work16Lesson47.Models;
 
 namespace Work16Lesson47.Data
 {
-    public class OrderData
+    public class OrderData : IOrderData
     {
         private readonly ISqlDataAccess _db;
         public OrderData(ISqlDataAccess db)

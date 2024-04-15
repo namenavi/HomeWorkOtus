@@ -11,7 +11,17 @@ namespace Work16Lesson47
             var db = new SqlDataAccess("Host=localhost;Port=5432;Database=Shop;Username=postgres;Password=pass");
             CustomersData(db);
             OrdersData(db);
+            ProductsData(db);
             Console.ReadLine();
+
+        }
+
+        private static async void ProductsData(SqlDataAccess db)
+        {
+            var data = new ProductData(db);
+            var list = await data.GetProducts();
+            var list1 = await data.GetProduct(2);
+            var list2 = await data.GetProductsByFilter("aptop");
 
         }
 
